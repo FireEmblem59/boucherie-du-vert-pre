@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boucherie du Vert Pré | Artisan Boucher Traiteur à Mouvaux</title>
+    <link rel="icon" href="images/logo.jpg" type="image/jpeg" />
+    <meta
+      name="description"
+      content="Découvrez la Boucherie du Vert Pré à Mouvaux. Viandes de qualité supérieure, charcuterie maison et service traiteur pour tous vos événements."
+    />
+    <style>
+      :root {
+        --primary: #8b0000;
+        --secondary: #1a1a1a;
+        --light: #f4f1ea;
+        --text: #333;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Georgia", serif;
+      }
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      h1,
+      h2,
+      h3,
+      .nav-links a {
+        font-family: "Playfair Display", serif;
+      }
+
+      /* ── HEADER ── */
+      header {
+        background: var(--secondary);
+        color: white;
+        padding: 1rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .logo img {
+        height: 70px;
+        background: white;
+        border-radius: 50%;
+        padding: 5px;
+      }
+      .logo-text {
+        font-size: 1.2rem;
+        color: white;
+        font-family: "Playfair Display", serif;
+      }
+      nav a {
+        text-decoration: none;
+        color: white;
+        margin-left: 2rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        transition: color 0.3s;
+      }
+      nav a:hover {
+        color: var(--primary);
+      }
+
+      /* ── BURGER ── */
+      .burger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 4px;
+        background: none;
+        border: none;
+      }
+      .burger span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background: white;
+        transition: all 0.3s;
+        transform-origin: center;
+      }
+      .burger.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .burger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .burger.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* ── MOBILE NAV ── */
+      .mobile-nav {
+        display: none;
+        flex-direction: column;
+        background: var(--secondary);
+        padding: 0.5rem 5%;
+        position: sticky;
+        top: 82px;
+        z-index: 99;
+      }
+      .mobile-nav.open {
+        display: flex;
+      }
+      .mobile-nav a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        letter-spacing: 1px;
+      }
+      .mobile-nav a:last-child {
+        border-bottom: none;
+      }
+      .mobile-nav a:hover {
+        color: var(--primary);
+      }
+
+      /* ── CTA ── */
+      .btn-cta {
+        background-color: var(--primary);
+        color: white;
+        padding: 0.8rem 1.8rem;
+        text-decoration: none;
+        border-radius: 3px;
+        font-weight: bold;
+        font-family: sans-serif;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        transition: background 0.3s;
+        display: inline-block;
+      }
+      .btn-cta:hover {
+        background-color: #660000;
+      }
+
+      /* ── SECTIONS ── */
+      section {
+        padding: 5rem 5%;
+        scroll-margin-top: 82px;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        display: flex;
+        align-items: center;
+        background-color: #0a0a0a;
+        min-height: 100vh;
+        padding: 0;
+      }
+      .hero-image {
+        flex: 0 0 45%;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+      }
+      .hero-image img {
+        width: 150%;
+        max-height: 90vh;
+        object-fit: contain;
+        object-position: bottom left;
+      }
+      .hero-content {
+        flex: 1;
+        padding: 4rem;
+        text-align: left;
+        color: white;
+      }
+
+      /* ── ABOUT ── */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      .about-text h2,
+      .services h2,
+      .gallery h2,
+      .contact h2 {
+        font-size: 2.8rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+      .about-text {
+        text-align: left;
+      }
+      .about-text h2 {
+        text-align: left;
+      }
+      .about-text p {
+        font-family: sans-serif;
+        margin-bottom: 1rem;
+      }
+      .about-image {
+        width: 100%;
+        height: 450px;
+        background: url("images/viande.jpg") center/cover;
+        border: 10px solid white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background-color: #ddd;
+      }
+
+      /* ── SERVICES ── */
+      .services {
+        background-color: white;
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+      .service-card {
+        padding: 3rem 2rem;
+        background: var(--light);
+        text-align: center;
+        border-top: 4px solid var(--primary);
+      }
+      .service-card h3 {
+        color: var(--secondary);
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+      }
+      .service-card p {
+        font-family: sans-serif;
+      }
+
+      /* ── GALLERY ── */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .gallery-item {
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        background-color: #ddd;
+      }
+
+      /* ── CONTACT ── */
+      .contact {
+        background-color: var(--secondary);
+        color: white;
+      }
+      .contact h2 {
+        color: white;
+      }
+      .contact-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 3rem;
+        text-align: center;
+        font-family: sans-serif;
+      }
+      .info-box {
+        margin: 1rem;
+      }
+      .info-box h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+      }
+
+      footer {
+        background: #111;
+        color: #888;
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.9rem;
+        font-family: sans-serif;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        nav {
+          display: none;
+        }
+        .burger {
+          display: flex;
+        }
+        /* Cacher le btn téléphone dans header sur mobile */
+        .header-tel {
+          display: none;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .about-image {
+          height: 250px;
+        }
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+        section {
+          padding: 3rem 5%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="images/text.jpg"
+          alt="Boucherie du Vert Pré"
+          onerror="
+            this.style.display = 'none';
+            document.querySelector('.logo-text').style.display = 'block';
+          "
+        />
+        <span class="logo-text" style="display: none"
+          >Boucherie du Vert Pré</span
+        >
+      </div>
+      <nav class="nav-links">
+        <a href="#about">La Maison</a>
+        <a href="#services">Nos Produits</a>
+        <a href="#contact">Nous Trouver</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="tel:+33320260621" class="btn-cta header-tel">03 20 26 06 21</a>
+    </header>
+
+    <nav class="mobile-nav" id="mobile-nav">
+      <a href="#about" onclick="closeMobileNav()">La Maison</a>
+      <a href="#services" onclick="closeMobileNav()">Nos Produits</a>
+      <a href="#contact" onclick="closeMobileNav()">Nous Trouver</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-image">
+        <img src="images/banner.jpg" alt="Boucherie du Vert Pré" />
+      </div>
+      <div class="hero-content">
+        <h1>Boucherie<br />du Vert Pré</h1>
+        <p>
+          La tradition bouchère au cœur de Mouvaux. Qualité, exigence et
+          savoir-faire pour des viandes d'exception et un service traiteur
+          raffiné.
+        </p>
+        <a
+          href="#contact"
+          class="btn-cta"
+          style="font-size: 1.1rem; padding: 1rem 2.5rem"
+        >
+          Découvrir la boutique
+        </a>
+      </div>
+    </section>
+
+    <section id="about" class="about-grid">
+      <div class="about-image"></div>
+      <div class="about-text">
+        <h2>Un Savoir-Faire Authentique</h2>
+        <p>
+          Située au 6 Rue du Vert Pré à Mouvaux, notre boucherie est une
+          institution locale reconnue pour son exigence de qualité et son amour
+          du bon produit.
+        </p>
+        <p>
+          Nous sélectionnons rigoureusement nos viandes auprès d'éleveurs
+          passionnés, en privilégiant les circuits courts et les races de
+          tradition. Notre équipe d'artisans bouchers prépare chaque jour des
+          produits frais, respectant les méthodes traditionnelles pour vous
+          offrir le meilleur de la gastronomie française.
+        </p>
+        <br />
+        <a href="#contact" class="btn-cta">Venir en boutique</a>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <h2>Nos Spécialités</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Boucherie</h3>
+          <p>
+            Bœuf maturé, veau de lait, agneau de prés salés, volailles
+            fermières... Une sélection rigoureuse pour les amateurs de viandes
+            savoureuses et tendres.
+          </p>
+        </div>
+        <div class="service-card">
+          <h3>Charcuterie</h3>
+          <p>
+            Découvrez notre charcuterie artisanale faite maison : terrines,
+            pâtés, saucissons et jambons préparés dans le respect des recettes
+            d'antan.
+          </p>
+        </div>
+        <div class="service-card">
+          <h3>Traiteur</h3>
+          <p>
+            Plats cuisinés quotidiens ou organisation de vos événements festifs.
+            Nous vous accompagnons avec des menus sur-mesure et des produits
+            d'exception.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+      <h2>En Vitrine</h2>
+      <div class="gallery-grid">
+        <div
+          class="gallery-item"
+          style="background-image: url(&quot;images/gallery-1.jpg&quot;)"
+        ></div>
+        <div
+          class="gallery-item"
+          style="background-image: url(&quot;images/gallery-2.jpg&quot;)"
+        ></div>
+        <div
+          class="gallery-item"
+          style="background-image: url(&quot;images/gallery-3.jpg&quot;)"
+        ></div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Passez Commande</h2>
+      <p style="text-align: center; font-family: sans-serif">
+        Nous sommes ravis de vous accueillir en boutique pour vous conseiller.
+      </p>
+      <div class="contact-container">
+        <div class="info-box">
+          <h3>📍 Adresse</h3>
+          <p>6 Rue du Vert Pré<br />59420 Mouvaux, France</p>
+        </div>
+        <div class="info-box">
+          <h3>📞 Téléphone</h3>
+          <p>
+            <a
+              href="tel:+33320260621"
+              style="color: white; text-decoration: none"
+              >03 20 26 06 21</a
+            >
+          </p>
+        </div>
+        <div class="info-box">
+          <h3>✉️ Email</h3>
+          <p>
+            <a
+              href="mailto:boucherieduvertpre@gmail.com"
+              style="color: white; text-decoration: none"
+              >boucherieduvertpre@gmail.com</a
+            >
+          </p>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 2rem">
+        <a
+          href="mailto:boucherieduvertpre@gmail.com"
+          class="btn-cta"
+          style="background-color: var(--light); color: var(--secondary)"
+          >Nous Écrire</a
+        >
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Boucherie du Vert Pré. L'artisanat boucher à Mouvaux.</p>
+    </footer>
+
+    <script>
+      const burger = document.getElementById("burger");
+      const mobileNav = document.getElementById("mobile-nav");
+
+      burger.addEventListener("click", () => {
+        burger.classList.toggle("open");
+        mobileNav.classList.toggle("open");
+      });
+
+      function closeMobileNav() {
+        burger.classList.remove("open");
+        mobileNav.classList.remove("open");
+      }
+    </script>
+  </body>
+</html>
